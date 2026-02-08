@@ -7,7 +7,7 @@ namespace App\Enums;
 enum SSOLoginProviderEnum: string
 {
     case GOOGLE = 'google';
-    case FACEBOOK = 'google';
+    case FACEBOOK = 'facebook';
 
     public function label(): string
     {

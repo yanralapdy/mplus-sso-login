@@ -24,4 +24,5 @@ Homestead.yaml
 Thumbs.db
 /storage/logs
 /storage/framework
-
+api-docs.json
+api-docs.yaml

@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: docker/dev/Dockerfile
     volumes:
-      - ./app:/var/www
+      - ./src:/var/www
     working_dir: /var/www
     command: php-fpm
     environment:
