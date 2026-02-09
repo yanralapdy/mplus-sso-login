@@ -43,14 +43,6 @@ Refreshes expired access token using refresh token.
 
 ---
 
-#### Logout
-
-`POST /api/v1/auth/logout`
-
-Invalidates current JWT token.
-
----
-
 ### Social Authentication
 
 #### Google and Facebook Login
@@ -58,6 +50,20 @@ Invalidates current JWT token.
 `POST /api/v1/auth/sso`
 
 Authenticates user using Google OAuth or Facebook OAuth.
+
+---
+
+### My Profile
+
+> Requires login with any user
+
+#### Get My Profile
+
+`GET /api/v1/users/profile`
+
+#### Update My Profile
+
+`PUT /api/v1/users/profile`
 
 ---
 
@@ -238,5 +244,6 @@ Admin routes are protected by `admin` middleware.
 * I also provide postman collection in the root folder REST_API_MPlus.postman_collection.json
 
 ---
+
 
 
