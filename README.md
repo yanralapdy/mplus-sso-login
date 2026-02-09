@@ -116,7 +116,6 @@ JWT_REFRESH_TTL=20160
 ```
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-GOOGLE_REDIRECT_URI=
 ```
 
 ### Facebook OAuth
@@ -124,7 +123,6 @@ GOOGLE_REDIRECT_URI=
 ```
 FACEBOOK_CLIENT_ID=
 FACEBOOK_CLIENT_SECRET=
-FACEBOOK_REDIRECT_URI=
 ```
 
 ---
@@ -242,3 +240,4 @@ Admin routes are protected by `admin` middleware.
 ---
 
 Happy hacking
+
