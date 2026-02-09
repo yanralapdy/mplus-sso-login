@@ -98,7 +98,7 @@ APP_DEBUG=true
 APP_URL=http://localhost
 ```
 
-### Database
+### Database // set database name username and password equal to your docker-compose.dev.yml db Env or your host machine db if not using docker setup
 
 ```
 DB_CONNECTION=pgsql
@@ -244,6 +244,7 @@ Admin routes are protected by `admin` middleware.
 * I also provide postman collection in the root folder REST_API_MPlus.postman_collection.json
 
 ---
+
 
 
 
