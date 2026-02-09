@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\SSOAuthController;
+use App\Http\Controllers\Api\V1\Master\ProfileController;
 use App\Http\Controllers\Api\V1\Master\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,16 @@ Route::prefix('v1')->group(function () {
         Route::post('refresh-token', [AuthController::class, 'refresh']);
     });
 
-    Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
+    Route::middleware(['auth:api'])->group(function () {
         Route::prefix('users')->group(function () {
-            Route::get('/', [UserController::class, 'index']);
+            Route::get('/profile', [ProfileController::class, 'show']);
+            Route::put('/profile', [ProfileController::class, 'update']);
+        });
+
+        Route::middleware(['admin'])->prefix('admin')->group(function () {
+            Route::prefix('users')->group(function () {
+                Route::get('/', [UserController::class, 'index']);
+            });
         });
     });
 });
