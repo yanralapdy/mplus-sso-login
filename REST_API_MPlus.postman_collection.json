@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "c84cd28c-ef42-43de-8c90-d34a28770e25",
+		"name": "REST API MPlus",
+		"description": "## Get Started – Mplus API (JWT & SSO)\n\nThis Postman collection helps you explore and test the **Laravel REST API** that provides:\n\n- JWT-based authentication\n    \n- Google & Facebook SSO\n    \n- User profile management\n    \n- Admin user management\n    \n\nThe collection is structured to guide you through authentication flows, protected endpoints, and admin-only operations.\n\n---\n\n## How to Use This Collection\n\n### Step 1: Set up environment variables\n\nThis collection relies on Postman **variables** to work correctly.\n\nRequired variables:\n\n| Variable | Description |\n| --- | --- |\n| `base_url` | Base API URL (e.g. `http://localhost/api/v1`) |\n| `access_token` | JWT access token (auto-set after login) |\n\nUpdate `base_url` to match your local or production API.\n\n---\n\n### Step 2: Authentication Flow\n\nStart with one of the authentication endpoints:\n\n- **Custom Login**\n    \n    - `POST /auth/login`\n        \n- **Custom Register**\n    \n    - `POST /auth/register`\n        \n- **Google SSO**\n    \n    - `POST /auth/google`\n        \n- **Facebook SSO**\n    \n    - `POST /auth/facebook`\n        \n\nAfter a successful login:\n\n- The API returns a **JWT access token**\n    \n- The token is automatically saved into `access_token` via Postman test scripts\n    \n\nAll protected endpoints will use:\n\n```\nAuthorization: Bearer {{access_token}}\n\n ```\n\n---\n\n### Step 3: Test Protected Endpoints\n\nOnce authenticated, you can access:\n\n#### User\n\n- `GET /users/profile` – Retrieve authenticated user profile\n    \n- `PUT /users/profile` – Update profile information\n    \n\n#### Token\n\n- `POST /auth/token/refresh` – Refresh JWT token\n    \n\n#### Admin (Admin role required)\n\n- `GET /admin/users` – Fetch all users (pagination supported)\n    \n\n---\n\n### Step 4: Send Request Body Data\n\nFor endpoints that accept a request body (POST / PUT):\n\n1. Open the request\n    \n2. Go to the **Body** tab\n    \n3. Select **raw → JSON**\n    \n4. Modify values as needed\n    \n\nExample:\n\n```\n{\n  \"email\": \"user@example.com\",\n  \"password\": \"secret123\"\n}\n\n ```\n\n---\n\n### Step 5: View Responses\n\nFor each request, observe:\n\n- HTTP status code (200, 201, 401, 403, etc.)\n    \n- Response time\n    \n- Response body and error messages\n    \n\nThis helps verify authentication, validation, and authorization behavior.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47958567",
+		"_collection_link": "https://thamia-nurlita-s-team.postman.co/workspace/Team-Workspace~b9637926-b280-49bd-8892-046f9a759e52/collection/47958567-c84cd28c-ef42-43de-8c90-d34a28770e25?action=share&source=collection_link&creator=47958567"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": []
+		},
+		{
+			"name": "Profile",
+			"item": []
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "User list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3YxL2F1dGgvbG9naW4iLCJpYXQiOjE3NzA2MjAyODMsImV4cCI6MTc3MDYyMzg4MywibmJmIjoxNzcwNjIwMjgzLCJqdGkiOiJzZXZvTTNGTVZKd2tscTdLIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ._wpNy4uganyA0069790MlfTJKlmKmWR0zaMlZc0YJ_c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/admin/users?type=pagination&per_page=3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "pagination"
+								},
+								{
+									"key": "per_page",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://template.postman-echo.com"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
