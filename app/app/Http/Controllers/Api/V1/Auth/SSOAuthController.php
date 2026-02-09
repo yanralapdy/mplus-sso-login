@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Enums\SSOLoginProviderEnum;
-use App\Http\Requests\SSOAuthFormRequest;
+use App\Http\Requests\Api\V1\Auth\SSOAuthFormRequest;
+use App\Http\Resources\Api\V1\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -17,23 +19,32 @@ final class SSOAuthController
     {
         $data = $request->validated();
 
-        $provider_data = Socialite::driver($data['provider'])
-            ->stateless()
-            ->userFromToken($request->token);
+        try {
+            $provider_data = Socialite::driver($data['provider'])
+                ->stateless()
+                ->userFromToken($data['token']);
 
-        return $this->handle_sso_data(provider: $data['provider'], provider_data: $provider_data);
+            if (!$provider_data || !$provider_data->getEmail()) {
+                throw new \Exception('Invalid user data received from provider.');
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Unauthorized: Invalid or expired SSO token.',
+                'error' => $e->getMessage()
+            ], 401);
+        }
+
+        return $this->handle_sso_data(provider: SSOLoginProviderEnum::from($data['provider']), provider_data: $provider_data);
     }
 
     private function handle_sso_data(SSOLoginProviderEnum $provider, $provider_data)
     {
         $user = User::firstOrCreate(
             [
-                'provider' => $provider,
-                'provider_id' => $provider_data->getId(),
+                'email' => $provider_data->getEmail(),
             ],
             [
                 'name' => $provider_data->getName() ?? $provider_data->getNickname(),
-                'email' => $provider_data->getEmail(),
                 'provider' => $provider,
                 'provider_id' => $provider_data->getId(),
             ]
@@ -45,7 +56,7 @@ final class SSOAuthController
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => Auth::guard('api')->factory()->getTTL() * 60,
-            'user' => $user,
+            'user' => new UserResource($user),
         ]);
     }
 }

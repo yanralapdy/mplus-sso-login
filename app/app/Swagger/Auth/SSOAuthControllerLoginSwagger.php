@@ -22,12 +22,14 @@ class SSOAuthControllerLoginSwagger
                 new OA\Property(
                     property: 'token',
                     type: 'string',
-                    example: 'GOOGLE_ID_TOKEN|FACEBOOK_ACCESS_TOKEN'
+                    example: 'GOOGLE_ACCESS_TOKEN|FACEBOOK_ACCESS_TOKEN'
                 ),
                 new OA\Property(
                     property: 'provider',
                     type: 'string',
-                    example: 'google|facebook'
+                    example: 'google|facebook',
+                    description: 'The auth provider',
+                    enum: ['google', 'facebook'],
                 )
             ]
         )
@@ -42,7 +44,5 @@ class SSOAuthControllerLoginSwagger
             new OA\Property(property: 'user', type: 'object')
         ])
     )]
-    public function login()
-    {        // This method exists only for the scanner to attach attributes
-    }
+    public function login() {}
 }

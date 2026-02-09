@@ -2,11 +2,23 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\SSOAuthController;
+use App\Http\Controllers\Api\V1\Master\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
         Route::post('sso', [SSOAuthController::class, 'login']);
+
+        Route::post('register', [AuthController::class, 'register']);
+        Route::post('login', [AuthController::class, 'login']);
+        Route::post('refresh-token', [AuthController::class, 'refresh']);
+    });
+
+    Route::middleware(['auth:api', 'admin'])->prefix('admin')->group(function () {
+        Route::prefix('users')->group(function () {
+            Route::get('/', [UserController::class, 'index']);
+        });
     });
 });

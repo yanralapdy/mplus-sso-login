@@ -9,6 +9,7 @@ help:
 	@echo "  make build ENV=dev|prod  Build images"
 	@echo "  make shell               Enter app container"
 	@echo "  make artisan cmd='...'   Run artisan command"
+	@echo "  make setup	Run necessary command for laravel to run"
 
 up:
 	docker compose -f docker-compose.$(ENV).yml up -d
@@ -24,4 +25,7 @@ shell:
 
 artisan:
 	docker compose -f docker-compose.dev.yml exec app php artisan $(cmd)
+
+setup:
+	docker compose -f docker-compose.$(ENV).yml exec app sh ./sh/$(ENV).sh
 

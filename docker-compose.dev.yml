@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: docker/dev/Dockerfile
     volumes:
-      - ./src:/var/www
+      - ./app:/var/www
     working_dir: /var/www
     command: php-fpm
     environment:
@@ -27,6 +27,9 @@ services:
       POSTGRES_USER: mplus
       POSTGRES_PASSWORD: S3cr#t!2e
     ports:
-      - "5432:5432"
+      - "5433:5432"
+    volumes:
+          - db_data:/var/lib/postgresql/data
 
-
+volumes:
+  db_data:
