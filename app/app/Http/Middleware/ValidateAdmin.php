@@ -15,7 +15,7 @@ final class ValidateAdmin
     {
         $user = $request->user();
 
-        if (! $user || $user->role !== UserRoleEnum::ADMIN) {
+        if (! $user || $user?->role !== UserRoleEnum::ADMIN) {
             return response()->json([
                 'message' => 'Forbidden. Admin access only.'
             ], 403);
