@@ -242,8 +242,10 @@ Admin routes are protected by `admin` middleware.
 * Laravel 12 uses middleware registration via `bootstrap/app.php`
 * On Dev Visit `{{app_url}}/api/documentation` to see swagger documentation
 * I also provide postman collection in the root folder REST_API_MPlus.postman_collection.json
+* Use `email: admin@mplus.com, password: secret123` to use api admin list users
 
 ---
+
 
 
 
