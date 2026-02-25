@@ -9,7 +9,6 @@ use App\Http\Requests\Api\V1\Auth\SSOAuthFormRequest;
 use App\Http\Resources\Api\V1\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\Facades\JWTAuth;
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\Auth\SSOAuthController;
 use App\Http\Controllers\Api\V1\Master\ProfileController;
 use App\Http\Controllers\Api\V1\Master\UserController;
+use App\Http\Controllers\Api\V2\Auth\V2SSOAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -28,5 +29,11 @@ Route::prefix('v1')->group(function () {
                 Route::get('/', [UserController::class, 'index']);
             });
         });
+    });
+});
+
+Route::prefix('v2')->group(function () {
+    Route::prefix('auth')->group(function () {
+        Route::post('sso', [V2SSOAuthController::class, 'login']);
     });
 });
